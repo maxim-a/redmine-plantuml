@@ -1,5 +1,7 @@
 class PlantumlController < ApplicationController
-  unloadable
+  if Redmine::VERSION::MAJOR < 4 || (Redmine::VERSION::MAJOR == 4 && Redmine::VERSION::MINOR < 1)
+    unloadable
+  end
 
   def convert
     frmt = PlantumlHelper.check_format(params[:content_type])

@@ -4,8 +4,10 @@ module PlantumlHelperPatch
   def self.included(base) # :nodoc:
     base.send(:prepend, HelperMethodsWikiExtensions)
 
-    base.class_eval do
-      unloadable # Send unloadable so it will not be unloaded in development
+    if Redmine::VERSION::MAJOR < 4 || (Redmine::VERSION::MAJOR == 4 && Redmine::VERSION::MINOR < 1)
+      base.class_eval do
+        unloadable # Send unloadable so it will not be unloaded in development
+      end
     end
   end
 end
